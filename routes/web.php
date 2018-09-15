@@ -11,20 +11,42 @@
 |
 */
 
-//Home
+// ** Site Routes **
+
+//Site->Home
 Route::get('/', 'Site\SiteController@index' );
 
-//Categoria
+//Site->Categoria
 Route::get('categoria', 'Site\SiteController@categoria' );
 
-//Post
+//Site->Post
 Route::get('post', 'Site\SiteController@post' );
 
-//Empresa
+//Site->Empresa
 Route::get('empresa', 'Site\SiteController@empresa' );
 
-//Contato
+//Site->Contato
 Route::get('contato', 'Site\SiteController@contato' );
+
+
+// // ** Painel Routes **
+
+// //Painel->Home
+// Route::get('painel/home', 'Painel\PainelController@home');
+
+// //Painel->List
+// Route::get('painel/list', 'Painel\PainelController@list');
+
+// //Painel->Form
+// Route::get('painel/forms', 'Painel\PainelController@form');
+
+
+// ** Painel Routes **
+Route::group(['prefix' => 'painel'], function(){
+    //Painel->Home
+    Route::resource('/usuarios', 'Painel\UserController');
+
+});
 
 //Dashboard
 // Route::get('dashboard', function(){ return view('dashboard'); });
