@@ -11,16 +11,23 @@
 |
 */
 
-//Site
-Route::get('site', function(){ return view('site.index'); });
+//Home
+Route::get('/', 'Site\SiteController@index' );
 
-//Sobre
-Route::get('sobre', 'PagesController@sobre');
+//Categoria
+Route::get('categoria', 'Site\SiteController@categoria' );
+
+//Post
+Route::get('post', 'Site\SiteController@post' );
+
+//Empresa
+Route::get('empresa', 'Site\SiteController@empresa' );
+
+//Contato
+Route::get('contato', 'Site\SiteController@contato' );
 
 //Dashboard
-Route::get('dashboard', function(){ return view('dashboard'); });
+// Route::get('dashboard', function(){ return view('dashboard'); });
 
-Route::get('amigos', 'PagesController@amigos');
 
-Route::get('/', 'PagesController@index');
 
