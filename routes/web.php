@@ -12,7 +12,7 @@
 */
 
 //Site
-Route::get('site', function(){ return view('home.templates.index'); });
+Route::get('site', function(){ return view('site.index'); });
 
 //Sobre
 Route::get('sobre', 'PagesController@sobre');
