@@ -29,6 +29,9 @@ Route::group(['prefix' => 'painel'], function (){
     Route::any('/usuarios/pesquisar', 'Painel\UserController@search')->name('usuarios.search');
     Route::resource('/usuarios', 'Painel\UserController');
 
+    Route::any('/categorias/pesquisar', 'Painel\CategoryController@search')->name('categorias.search');
+    Route::resource('/categorias', 'Painel\CategoryController');
+
 
 });
 
