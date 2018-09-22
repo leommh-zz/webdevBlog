@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','facebook', 'twitter', 'github','site','biography', 'image'
     ];
 
     /**
@@ -26,4 +26,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function rules($id = '')
+    {
+        return [
+            'name'      => 'required|min:3|max:100',
+            'email'     => "required|min:3|max:100|email|unique:users,email,{$id},id",
+            'password'  => 'required|min:3|max:200|confirmed',
+            'facebook'  => 'required|min:3|max:100',
+            'twitter'   => 'required|min:3|max:100',
+            'github'    => 'required|min:3|max:100',
+            'site'      => 'required|min:3|max:200',
+            'biography' => 'required|min:3|max:1000',
+            'image'     => 'image',
+        ];
+    }
 }

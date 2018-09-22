@@ -21,11 +21,18 @@
 <section class="menu">
 	
 	<div class="logo">
-    <img src="{{'imgs/icone-alfa.png'}}" alt="webdevalfa" class="logo-painel">
+    <img src="{{url('painel/imgs/icone-alfa.png')}}" alt="webdevalfa" class="logo-painel">
 	</div>
 
 	<div class="list-menu">
 		<ul class="menu-list">
+			<li>
+            <a href="{{url('/painel/usuarios')}}">
+					<i class="fa fa-users" aria-hidden="true"></i>
+					Usuários
+				</a>
+			</li>
+
 			<li>
             <a href="{{url('/painel/home')}}">
 					<i class="fa fa-home" aria-hidden="true"></i>

@@ -1,5 +1,4 @@
-@extends('site.templates.master');
-
-@section('conteudo')
-    <h1>Error 404</h1>
-@endsection
+<div class="container">
+        <img class="img-responsive" src="{{url('/imgs/404.jpg')}}" alt="">
+</div>
+       

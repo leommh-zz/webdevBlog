@@ -11,45 +11,56 @@
 |
 */
 
-// ** Site Routes **
 
-//Site->Home
-Route::get('/', 'Site\SiteController@index' );
+/*
+ * Routes Sites
+ */
+Route::get('/contato', 'Site\SiteController@contato');
+Route::get('/empresa', 'Site\SiteController@empresa');
+Route::get('/post', 'Site\SiteController@post');
+Route::get('/categoria', 'Site\SiteController@categoria');
+Route::get('/', 'Site\SiteController@index');
 
-//Site->Categoria
-Route::get('categoria', 'Site\SiteController@categoria' );
-
-//Site->Post
-Route::get('post', 'Site\SiteController@post' );
-
-//Site->Empresa
-Route::get('empresa', 'Site\SiteController@empresa' );
-
-//Site->Contato
-Route::get('contato', 'Site\SiteController@contato' );
-
-
-// // ** Painel Routes **
-
-// //Painel->Home
-// Route::get('painel/home', 'Painel\PainelController@home');
-
-// //Painel->List
-// Route::get('painel/list', 'Painel\PainelController@list');
-
-// //Painel->Form
-// Route::get('painel/forms', 'Painel\PainelController@form');
-
-
-// ** Painel Routes **
-Route::group(['prefix' => 'painel'], function(){
-    //Painel->Home
+/****************************************************************************************
+ * Rotas do Painel
+****************************************************************************************/
+Route::group(['prefix' => 'painel'], function (){
+    //Usuários
+    Route::any('/usuarios/pesquisar', 'Painel\UserController@search')->name('usuarios.search');
     Route::resource('/usuarios', 'Painel\UserController');
+
 
 });
 
-//Dashboard
-// Route::get('dashboard', function(){ return view('dashboard'); });
+
+/**
+ * Routes Painel
+ */
+
+//  Route::get('/painel/home', function (){
+
+//      return view ('painel.index');
+//  });
+
+//  Route::get('/painel/list', function (){
+
+//     return view ('painel.modulos.list');
+// });
+
+
+Route::get('/painel/forms', function (){
+
+    return view ('painel.modulos.forms');
+});
+
+
+// // /**
+// //  * Routes Painel
+// //  */
+
+// Route::get('/painel/home', 'Painel\PainelController@home');
+// Route::get('/painel/list', 'Painel\PainelController@list');
+// Route::get('/painel/forms', 'Painel\PainelController@forms');
 
 
 

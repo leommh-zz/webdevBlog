@@ -7,30 +7,28 @@ use App\Http\Controllers\Controller;
 
 class SiteController extends Controller
 {
-    //Home
-    public function index(){
+    public function index()
+    {
         return view ('site.index');
     }
 
-    //Categoria
-    public function categoria(){
+    public function categoria()
+    {
         return view ('site.pages.categoria');
     }
 
-    //Post
-    public function post(){
+    public function post()
+    {
         return view ('site.pages.post');
     }
 
-    //Empresa
-    public function empresa(){
+    public function empresa()
+    {
         return view ('site.pages.empresa');
     }
 
-    //Contato
-    public function contato(){
+    public function contato()
+    {
         return view ('site.pages.contato');
     }
-
-    
 }

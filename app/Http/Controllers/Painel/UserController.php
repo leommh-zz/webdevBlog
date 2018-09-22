@@ -4,27 +4,33 @@ namespace App\Http\Controllers\Painel;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\User;
 
 class UserController extends Controller
 {
 
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
     protected $model;
-
-    public function __construct(User $user){
-        $this->model = $user;
-    }
-
+    protected $totalpages = 2;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(User $user)
+    {
+        $this->model = $user;
+    }
+
     public function index()
     {
-        $users = $this->model->get();
+        $users = $this->model->paginate($this->totalpages);
 
-        return view('painel.modulos.usuario.index', compact('users'));
+        return view ('painel.modulos.usuario.index', compact('users'));
     }
 
     /**
@@ -34,7 +40,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view ('painel.modulos.usuario.create-edit');
     }
 
     /**
@@ -45,7 +51,48 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //VALIDA OS DADOS
+        $this->validate($request, $this->model->rules());
+
+        //PEGANDO OS DADOS DO FORMULÁRIO
+        $dataForm = $request->all();
+
+        //CRIPTOGRAFANDO A SENHA
+        $dataForm['password'] = bcrypt($dataForm['password']);
+
+        //Verificar se existe a imagem
+        if ( $request->hasFile('image')){
+            //pegar a imagem
+            $image = $request->file('image');
+
+            //Definir no nome da imagem
+            $nameFile = uniqid(date('YmdHis')).'.'.$image->getClientOriginalExtension();
+
+            $upload = $image->storeAs('users', $nameFile);
+
+            if ( $upload )
+                $dataForm['image'] = $nameFile;
+            else
+                return redirect()
+                    ->route('usuarios.index')
+                    ->withErrors(['errors' => 'Erro no upload da imagem'])
+                    ->withInput();
+        }
+    
+
+        //inserir os dados
+        $insert = $this->model->create($dataForm);
+
+        //RETORNADO MENSAGEM PARA VIEW
+           if($insert)
+               return redirect()
+                   ->route('usuarios.index')
+                   ->with(['success'=>'Cadastro realizado com sucesso!']);
+           else
+               return redirect()
+                   ->route('usuarios.create')
+                   ->withErrors(['errors' => 'Falha ao cadastrar'])
+                   ->withInput();
     }
 
     /**
@@ -56,7 +103,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+         //Recuperar usuário
+         $data = $this->model->find($id);
+
+         return view('painel.modulos.usuario.show', compact('data'));
     }
 
     /**
@@ -67,7 +117,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+         //Recuperar usuário
+         $data = $this->model->find($id);
+
+ 
+         return view('painel.modulos.usuario.create-edit', compact('data'));
     }
 
     /**
@@ -79,7 +133,53 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         //VALIDA OS DADOS
+         $this->validate($request, $this->model->rules($id));
+
+         //PEGANDO OS DADOS DO FORMULÁRIO
+         $dataForm = $request->all();
+
+         //Criar objeto usuario
+         $data = $this->model->find($id);
+ 
+         //CRIPTOGRAFANDO A SENHA
+         $dataForm['password'] = bcrypt($dataForm['password']);
+ 
+         //Verificar se existe a imagem
+        if ( $request->hasFile('image')){
+             //pegar a imagem
+             $image = $request->file('image');
+ 
+             //Definir no nome da imagem
+            if ($data->image == ''){
+                $nameImage = uniqid(date('YmdHis')).'.'.$image->getClientOriginalExtension();
+                $dataForm['image'] = $nameImage;
+            } else {
+                $nameImage = $data->image;
+
+            }
+ 
+             $upload = $image->storeAs('users', $nameImage);
+ 
+             if ( $upload )
+                 $dataForm['image'] = $nameImage;
+             else
+                 return redirect()
+                     ->route('usuarios.index')
+                     ->withErrors(['errors' => 'Erro no upload da imagem'])
+                     ->withInput();
+         }
+        //Alterar os dados
+        $update = $data->update($dataForm);
+        if($update)
+            return redirect()
+                ->route('usuarios.index')
+                ->with(['success'=>'Alteração realizada com sucesso!']);
+        else
+            return redirect()
+                ->route('usuarios.update')
+                ->withErrors(['errors' => 'Falha ao editar'])
+                ->withInput(); 
     }
 
     /**
@@ -90,6 +190,31 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = $this->model->find($id);
+        $delete = $data->delete();
+
+        if ($delete) {
+            return redirect()
+                ->route("usuarios.index")
+                ->with(['success'=>"{$data->name} excluido com sucesso!"]);
+        } else {
+            return redirect()
+                ->route("usuarios.show")
+                ->withErrors(['errors'=>'Falha ao excluir!']);
+        }
+    }
+
+    public function search(Request $request)
+    {
+        //Recupera os dados do formulário
+        $dataForm = $request->get('pesquisa');
+
+        //Filtra os usuários
+        $users = $this->model
+            ->where('name', 'LIKE', "%{$dataForm}%")
+            ->orWhere('email', 'LIKE', "%{$dataForm}%")
+            ->paginate($this->totalpages);
+
+        return view("painel.modulos.usuario.index", compact('users', 'dataForm'));
     }
 }
