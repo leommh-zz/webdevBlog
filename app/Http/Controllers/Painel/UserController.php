@@ -74,7 +74,7 @@ class UserController extends Controller
                 $dataForm['image'] = $nameFile;
             else
                 return redirect()
-                    ->route('usuarios.index')
+                    ->route('usuarios.create')
                     ->withErrors(['errors' => 'Erro no upload da imagem'])
                     ->withInput();
         }
