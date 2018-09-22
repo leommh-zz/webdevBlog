@@ -27,28 +27,35 @@
 	<div class="list-menu">
 		<ul class="menu-list">
 			<li>
-            <a href="{{url('/painel/usuarios')}}">
+				<a href="{{url('/painel/usuarios')}}">
 					<i class="fa fa-users" aria-hidden="true"></i>
 					Usuários
 				</a>
 			</li>
 
 			<li>
-            <a href="{{url('/painel/home')}}">
+				<a href="{{url('/painel/categorias')}}">
+					<i class="fa fa-tags" aria-hidden="true"></i>
+					Categorias
+				</a>
+			</li>
+
+			<li>
+				<a href="{{url('/painel/home')}}">
 					<i class="fa fa-home" aria-hidden="true"></i>
 					Home
 				</a>
 			</li>
 
 			<li>
-            <a href="{{url('/painel/list')}}">
+				<a href="{{url('/painel/list')}}">
 					<i class="fa fa-id-card" aria-hidden="true"></i>
 					Listagem
 				</a>
 			</li>
 
 			<li>
-            <a href="{{url('/painel/forms')}}">
+				<a href="{{url('/painel/forms')}}">
 					<i class="fa fa-fort-awesome" aria-hidden="true"></i>
 					Forms
 				</a>

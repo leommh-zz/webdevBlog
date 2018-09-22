@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Storage;
 use App\Category;
 
 class CategoryController extends Controller
@@ -16,6 +17,7 @@ class CategoryController extends Controller
 
     protected $model;
     protected $totalpages = 12;
+    protected $nameImage;
     /**
      * Display a listing of the resource.
      *
@@ -99,7 +101,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-         //Recuperar usuário
+         //Recuperar Categoria
          $data = $this->model->find($id);
 
          return view('painel.modulos.category.show', compact('data'));
@@ -188,6 +190,8 @@ class CategoryController extends Controller
         $delete = $data->delete();
 
         if ($delete) {
+            $filename = public_path().'/assets/uploads/categories/'.$data->image;
+            \File::delete($filename);
             return redirect()
                 ->route("categorias.index")
                 ->with(['success'=>"{$data->name} excluido com sucesso!"]);

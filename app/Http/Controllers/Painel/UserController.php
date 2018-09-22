@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Storage;
 use App\User;
 
 class UserController extends Controller
@@ -15,7 +16,8 @@ class UserController extends Controller
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected $model;
-    protected $totalpages = 2;
+    protected $totalpages = 15;
+    protected $nameFile;
     /**
      * Display a listing of the resource.
      *
@@ -194,6 +196,8 @@ class UserController extends Controller
         $delete = $data->delete();
 
         if ($delete) {
+            $filename = public_path().'/assets/uploads/categories/'.$data->image;
+            \File::delete($filename);
             return redirect()
                 ->route("usuarios.index")
                 ->with(['success'=>"{$data->name} excluido com sucesso!"]);
