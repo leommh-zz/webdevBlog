@@ -11,6 +11,10 @@
 |
 */
 
+// Auth Routes
+
+Auth::routes();
+
 
 /*
  * Routes Sites
@@ -24,7 +28,8 @@ Route::get('/', 'Site\SiteController@index');
 /****************************************************************************************
  * Rotas do Painel
 ****************************************************************************************/
-Route::group(['prefix' => 'painel'], function (){
+
+Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function (){
     //Usuários
     Route::any('/usuarios/pesquisar', 'Painel\UserController@search')->name('usuarios.search');
     Route::resource('/usuarios', 'Painel\UserController');
@@ -32,23 +37,11 @@ Route::group(['prefix' => 'painel'], function (){
     Route::any('/categorias/pesquisar', 'Painel\CategoryController@search')->name('categorias.search');
     Route::resource('/categorias', 'Painel\CategoryController');
 
+    Route::get('/logout', 'Auth\LoginController@Logout' );
+
 
 });
 
-
-/**
- * Routes Painel
- */
-
-//  Route::get('/painel/home', function (){
-
-//      return view ('painel.index');
-//  });
-
-//  Route::get('/painel/list', function (){
-
-//     return view ('painel.modulos.list');
-// });
 
 
 Route::get('/painel/forms', function (){
@@ -57,13 +50,8 @@ Route::get('/painel/forms', function (){
 });
 
 
-// // /**
-// //  * Routes Painel
-// //  */
-
-// Route::get('/painel/home', 'Painel\PainelController@home');
-// Route::get('/painel/list', 'Painel\PainelController@list');
-// Route::get('/painel/forms', 'Painel\PainelController@forms');
 
 
 
+
+// Route::get('/home', 'HomeController@index')->name('home');
