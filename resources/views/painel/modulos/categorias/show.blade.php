@@ -1,7 +1,7 @@
 @extends('painel.templates.dashboard')
 @section('conteudo')
 <div class="title-pg">
-<h1 class="title-pg">Visualizar Categoria: {{$data->name}}</h1>
+<h1 class="title-pg">Visualizar categorias: {{$data->name}}</h1>
 </div>
 
 <div class="content-din">
@@ -24,12 +24,13 @@
             <div class="col-md-8">
 
                 <h4><strong>Nome: </strong>{{$data->name}}</h4>
-                <h4><strong>Url: </strong>{{$data->url}}</h4>
+                <h4><strong>Url: </strong>{{$data->Url}}</h4>
                 <h4><strong>Descrição: </strong>{{$data->description}}</h4>
+ 
             </div>
             <div class="col-md-4">
                 @if(isset($data->image))
-                <img src="{{URL::asset('/assets/uploads/categories/'.$data->image)}}" alt="$category->image" class="img-responsive img-rounded img-bordered">
+                <img src="{{URL::asset('/assets/uploads/categorias/'.$data->image)}}" alt="$user->image" class="img-responsive img-rounded img-bordered">
                 @endif
             </div>
         </div>

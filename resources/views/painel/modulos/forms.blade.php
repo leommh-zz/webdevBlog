@@ -8,15 +8,22 @@
 
     <form class="form form-search form-ds">
         <div class="form-group">
-            <input type="text" name="title" placeholder="Nome:" class="form-control">
+            <input type="text" name="nome" placeholder="Nome:" class="form-control">
         </div>
         <div class="form-group">
-            <select name="Categoria">
-                <option value="1">Categoria</option>
-            </select>
+            <input type="text" name="email" placeholder="E-mail:" class="form-control">
         </div>
         <div class="form-group">
-            <input type="text" name="description" placeholder="Description" class="form-control">
+            <input type="text" name="email" placeholder="E-mail:" class="form-control">
+        </div>
+        <div class="form-group">
+            <input type="text" name="email" placeholder="E-mail:" class="form-control">
+        </div>
+        <div class="form-group">
+            <input type="text" name="email" placeholder="E-mail:" class="form-control">
+        </div>
+        <div class="form-group">
+            <input type="text" name="email" placeholder="E-mail:" class="form-control">
         </div>
 
         <div class="form-group">

@@ -7,32 +7,26 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Storage;
-use App\Category;
+use App\Models\Category;
 
 class StandardController extends Controller
 {
 
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected $model;
-    protected $totalpages = 12;
-    
+ 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct(Category $category)
-    {
-        $this->model = $category;
-    }
+   
 
     public function index()
     {
-        $categories = $this->model->paginate($this->totalpages);
+        $datas = $this->model->paginate($this->totalpages);
 
-        return view ('painel.modulos.category.index', compact('categories'));
+        return view ("{$this->views}.index", compact('datas'));
     }
 
     /**
@@ -42,7 +36,7 @@ class StandardController extends Controller
      */
     public function create()
     {
-        return view ('painel.modulos.category.create-edit');
+        return view ("{$this->views}.create-edit");
     }
 
     /**
@@ -67,16 +61,17 @@ class StandardController extends Controller
             //Definir no nome da imagem
             $nameFile = uniqid(date('YmdHis')).'.'.$image->getClientOriginalExtension();
 
-            $upload = $image->storeAs('categories', $nameFile);
+            $upload = $image->storeAs($this->rotas, $nameFile);
 
             if ( $upload )
                 $dataForm['image'] = $nameFile;
             else
                 return redirect()
-                    ->route('categorias.create')
+                    ->route("{$this->rotas}.index")
                     ->withErrors(['errors' => 'Erro no upload da imagem'])
                     ->withInput();
         }
+    
 
         //inserir os dados
         $insert = $this->model->create($dataForm);
@@ -84,11 +79,11 @@ class StandardController extends Controller
         //RETORNADO MENSAGEM PARA VIEW
            if($insert)
                return redirect()
-                    ->route('categorias.index')
-                    ->with(['success'=>'Cadastro realizado com sucesso!']);
+                   ->route("{$this->rotas}.index")
+                   ->with(['success'=>'Cadastro realizado com sucesso!']);
            else
                return redirect()
-                   ->route('categorias.create')
+                   ->route("{$this->rotas}.create")
                    ->withErrors(['errors' => 'Falha ao cadastrar'])
                    ->withInput();
     }
@@ -101,10 +96,10 @@ class StandardController extends Controller
      */
     public function show($id)
     {
-         //Recuperar Categoria
+         //Recuperar usuário
          $data = $this->model->find($id);
 
-         return view('painel.modulos.category.show', compact('data'));
+         return view("{$this->views}.show", compact('data'));
     }
 
     /**
@@ -118,8 +113,7 @@ class StandardController extends Controller
          //Recuperar usuário
          $data = $this->model->find($id);
 
- 
-         return view('painel.modulos.category.create-edit', compact('data'));
+         return view("{$this->views}.create-edit", compact('data'));
     }
 
     /**
@@ -132,7 +126,7 @@ class StandardController extends Controller
     public function update(Request $request, $id)
     {
          //VALIDA OS DADOS
-         $this->validate($request, $this->model->rules($id));
+         $this->validate($request, $this->model->rules());
 
          //PEGANDO OS DADOS DO FORMULÁRIO
          $dataForm = $request->all();
@@ -155,13 +149,13 @@ class StandardController extends Controller
 
             }
  
-             $upload = $image->storeAs('categories', $nameImage);
+             $upload = $image->storeAs($this->rotas, $nameImage);
  
              if ( $upload )
                  $dataForm['image'] = $nameImage;
              else
                  return redirect()
-                     ->route('categorias.index')
+                     ->route("{$this->rotas}.index")
                      ->withErrors(['errors' => 'Erro no upload da imagem'])
                      ->withInput();
          }
@@ -169,11 +163,11 @@ class StandardController extends Controller
         $update = $data->update($dataForm);
         if($update)
             return redirect()
-                ->route('categorias.index')
+                ->route("{$this->rotas}.index")
                 ->with(['success'=>'Alteração realizada com sucesso!']);
         else
             return redirect()
-                ->route('categorias.update')
+                ->route("{$this->rotas}.update")
                 ->withErrors(['errors' => 'Falha ao editar'])
                 ->withInput(); 
     }
@@ -190,14 +184,12 @@ class StandardController extends Controller
         $delete = $data->delete();
 
         if ($delete) {
-            $filename = public_path().'/assets/uploads/categories/'.$data->image;
-            \File::delete($filename);
             return redirect()
-                ->route("categorias.index")
+                ->route("{$this->rotas}.index")
                 ->with(['success'=>"{$data->name} excluido com sucesso!"]);
         } else {
             return redirect()
-                ->route("categorias.show")
+                ->route("{$this->rotas}.show")
                 ->withErrors(['errors'=>'Falha ao excluir!']);
         }
     }
@@ -208,10 +200,10 @@ class StandardController extends Controller
         $dataForm = $request->get('pesquisa');
 
         //Filtra os usuários
-        $categories = $this->model
+        $datas = $this->model
             ->where('name', 'LIKE', "%{$dataForm}%")
             ->paginate($this->totalpages);
 
-        return view("painel.modulos.category.index", compact('categories', 'dataForm'));
+        return view("{$this->views}.index", compact('datas', 'dataForm'));
     }
 }

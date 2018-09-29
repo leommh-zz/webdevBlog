@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Storage;
 use App\User;
 
 class UserController extends Controller
@@ -16,8 +15,7 @@ class UserController extends Controller
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected $model;
-    protected $totalpages = 15;
-    protected $nameFile;
+    protected $totalpages = 2;
     /**
      * Display a listing of the resource.
      *
@@ -76,11 +74,11 @@ class UserController extends Controller
                 $dataForm['image'] = $nameFile;
             else
                 return redirect()
-                    ->route('usuarios.create')
+                    ->route('usuarios.index')
                     ->withErrors(['errors' => 'Erro no upload da imagem'])
                     ->withInput();
         }
-    
+
 
         //inserir os dados
         $insert = $this->model->create($dataForm);
@@ -122,7 +120,7 @@ class UserController extends Controller
          //Recuperar usuário
          $data = $this->model->find($id);
 
- 
+
          return view('painel.modulos.usuario.create-edit', compact('data'));
     }
 
@@ -143,15 +141,15 @@ class UserController extends Controller
 
          //Criar objeto usuario
          $data = $this->model->find($id);
- 
+
          //CRIPTOGRAFANDO A SENHA
          $dataForm['password'] = bcrypt($dataForm['password']);
- 
+
          //Verificar se existe a imagem
         if ( $request->hasFile('image')){
              //pegar a imagem
              $image = $request->file('image');
- 
+
              //Definir no nome da imagem
             if ($data->image == ''){
                 $nameImage = uniqid(date('YmdHis')).'.'.$image->getClientOriginalExtension();
@@ -160,9 +158,9 @@ class UserController extends Controller
                 $nameImage = $data->image;
 
             }
- 
+
              $upload = $image->storeAs('users', $nameImage);
- 
+
              if ( $upload )
                  $dataForm['image'] = $nameImage;
              else
@@ -181,7 +179,7 @@ class UserController extends Controller
             return redirect()
                 ->route('usuarios.update')
                 ->withErrors(['errors' => 'Falha ao editar'])
-                ->withInput(); 
+                ->withInput();
     }
 
     /**
@@ -196,8 +194,6 @@ class UserController extends Controller
         $delete = $data->delete();
 
         if ($delete) {
-            $filename = public_path().'/assets/uploads/categories/'.$data->image;
-            \File::delete($filename);
             return redirect()
                 ->route("usuarios.index")
                 ->with(['success'=>"{$data->name} excluido com sucesso!"]);

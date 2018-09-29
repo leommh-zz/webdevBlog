@@ -10,10 +10,22 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Authentication Routes...
+$this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
+$this->post('login', 'Auth\LoginController@login');
+$this->get('logout', 'Auth\LoginController@logout')->name('logout');
 
-// Auth Routes
+// Registration Routes... Estas rotas podem ser excluidas, caso em sua regra de negocio
+// não exista o auto cadastro do usuário.
+$this->get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+$this->post('register', 'Auth\RegisterController@register');
 
-Auth::routes();
+// Password Reset Routes...
+$this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+$this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+$this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+$this->post('password/reset', 'Auth\ResetPasswordController@reset');
+
 
 
 /*
@@ -28,30 +40,21 @@ Route::get('/', 'Site\SiteController@index');
 /****************************************************************************************
  * Rotas do Painel
 ****************************************************************************************/
-
 Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function (){
+    
     //Usuários
     Route::any('/usuarios/pesquisar', 'Painel\UserController@search')->name('usuarios.search');
     Route::resource('/usuarios', 'Painel\UserController');
 
-    Route::any('/categorias/pesquisar', 'Painel\CategoryController@search')->name('categorias.search');
-    Route::resource('/categorias', 'Painel\CategoryController');
+   //Categorias
+   Route::any('/categorias/pesquisar', 'Painel\CategoriaController@search')->name('categorias.search');
+   Route::resource('/categorias', 'Painel\CategoriaController');
 
-    Route::get('/logout', 'Auth\LoginController@Logout' );
-
-
-});
-
-
-
-Route::get('/painel/forms', function (){
-
-    return view ('painel.modulos.forms');
+   //Raiz painel
+   Route::get('/', 'HomeController@index')->name('home');
 });
 
 
 
 
 
-
-// Route::get('/home', 'HomeController@index')->name('home');

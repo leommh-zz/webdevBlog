@@ -1,7 +1,7 @@
 @extends('painel.templates.dashboard')
 @section('conteudo')
 <div class="title-pg">
-    <h1 class="title-pg">Listagem das Categorias</h1>
+    <h1 class="title-pg">Listagem de Categorias</h1>
 </div>
 
 <div class="content-din bg-white">
@@ -11,7 +11,7 @@
 
             {{-- {{ csrf_field() }} --}}
             <input type="text" name="pesquisa"  class="form-control">
-            {{-- <input type="text" name="name" placeholder="Nome:" class="form-control"> --}}
+            {{-- <input type="text" name="email" placeholder="E-mail:" class="form-control"> --}}
 
             <button type="submit" class="btn btn-search">Pesquisar</button>
         </form>
@@ -40,17 +40,15 @@
         <tr>
             <th>Nome</th>
             <th>Url</th>
-            <th>Description</th>
             <th width="150">Ações</th>
         </tr>
-        @forelse($categories as $category)
+        @forelse($datas as $cat)
             <tr>
-                <td>{{$category->name}}</td>
-                <td>{{$category->url}}</td>
-                <td>{{$category->description}}</td>
+                <td>{{$cat->name}}</td>
+                <td>{{$cat->url}}</td>
                 <td>
-                <a href="{{route('categorias.show', $category->id)}}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
-                <a href="{{route('categorias.edit', $category->id)}}" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>
+                <a href="{{route('categorias.show', $cat->id)}}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
+                <a href="{{route('categorias.edit', $cat->id)}}" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>
 
                 </td>
             </tr>
@@ -61,12 +59,12 @@
         @endforelse
     </table>
 
-    {{-- {{$users->links()}} --}}
+    {{-- {{$datas->links()}} --}}
 
     @if(isset($dataForm))
-    {{$categories->appends(Request::only('pesquisa'))->links()}}
+    {{$datas->appends(Request::only('pesquisa'))->links()}}
         @else
-    {{$categories->links()}}
+    {{$datas->links()}}
         @endif
 
 </div><!--Content Dinâmico-->
