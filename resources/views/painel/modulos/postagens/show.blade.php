@@ -1,7 +1,7 @@
 @extends('painel.templates.dashboard')
 @section('conteudo')
 <div class="title-pg">
-<h1 class="title-pg">Visualizar categorias: {{$data->name}}</h1>
+<h1 class="title-pg">Visualizar postagens: {{$data->name}}</h1>
 </div>
 
 <div class="content-din">
@@ -30,20 +30,20 @@
             </div>
             <div class="col-md-4">
                 @if(isset($data->image))
-                <img src="{{URL::asset('/assets/uploads/categorias/'.$data->image)}}" alt="$user->image" class="img-responsive img-rounded img-bordered">
+                <img src="{{URL::asset('/assets/uploads/postagens/'.$data->image)}}" alt="$user->image" class="img-responsive img-rounded img-bordered">
                 @endif
             </div>
         </div>
     </div>
 
     <!-- form start -->
-    <form role="form" method="post" action="{{route('categorias.destroy', $data->id)}}" >
+    <form role="form" method="post" action="{{route('postagens.destroy', $data->id)}}" >
         {{ method_field('DELETE') }}
         {{ csrf_field() }}
         <div class="box-footer">
             <div class="form-group col-md-6">
                 <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Deletar</button>
-                <a href="{{route('categorias.index')}}" class="btn btn-info"><i class="fa fa-undo"></i>  Voltar</a>
+                <a href="{{route('postagens.index')}}" class="btn btn-info"><i class="fa fa-undo"></i>  Voltar</a>
             </div>
         </div>
     </form>

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{url('admin/css/webdevalfa.css')}}">
     <link rel="stylesheet" href="{{url('admin/css/webdevalfa-reset.css')}}">
 
+
 		<!--Favicon-->
     <link rel="icon" type="image/png" href="{{url('imgs/favicon.png')}}">
 	</head>
@@ -39,25 +40,25 @@
 				</a>
 			</li>
 			<li>
-            <a href="{{url('/painel/home')}}">
+            <a href="{{url('/painel')}}">
 					<i class="fa fa-home" aria-hidden="true"></i>
 					Home
 				</a>
 			</li>
 
 			<li>
-            <a href="{{url('/painel/list')}}">
+            <a href="{{url('/painel/postagens')}}">
 					<i class="fa fa-id-card" aria-hidden="true"></i>
 					Listagem
 				</a>
 			</li>
 
-			<li>
+			<!-- <li>
             <a href="{{url('/painel/forms')}}">
 					<i class="fa fa-fort-awesome" aria-hidden="true"></i>
 					Forms
 				</a>
-			</li>
+			</li> -->
 		</ul>
 	</div>
 
@@ -97,6 +98,7 @@
 
 	<!--jQuery-->
 <script src="{{url('admin/js/jquery-3.1.1.min.js')}}"></script>
+
 
 	<!-- jS Bootstrap -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>

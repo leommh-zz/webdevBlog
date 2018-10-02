@@ -50,6 +50,10 @@ Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function (){
    Route::any('/categorias/pesquisar', 'Painel\CategoriaController@search')->name('categorias.search');
    Route::resource('/categorias', 'Painel\CategoriaController');
 
+   //Postagens
+   Route::any('/postagens/pesquisar', 'Painel\PostagemController@search')->name('postagens.search');
+   Route::resource('/postagens', 'Painel\PostagemController');
+
    //Raiz painel
    Route::get('/', 'HomeController@index')->name('home');
 });

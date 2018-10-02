@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('title', 250);
+            $table->string('image', 200)->nullable();
             $table->text('description');
             $table->date('date');
             $table->time('hour');

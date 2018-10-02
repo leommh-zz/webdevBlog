@@ -1,7 +1,9 @@
-@extends('painel.templates.dashboard')
+@extends('painel.templates.dashboard') 
 @section('conteudo')
+
+
 <div class="title-pg">
-    <h1 class="title-pg">Cadasro de Categoria</h1>
+    <h1 class="title-pg">Cadastro de Postagens</h1>
 </div>
 
 <div class="content-din">
@@ -23,38 +25,46 @@
     @if(isset($data))
     <form 
     class="form form-search form-ds"  
-    method="post" action="{{route('categorias.update', $data->id)}}" enctype="multipart/form-data">
+    method="post" action="{{route('postagens.update', $data->id)}}" enctype="multipart/form-data">
         {{ method_field('PUT') }}
     @else
     <form 
     class="form form-search form-ds"  
-    method="post" action="{{route('categorias.store')}}" enctype="multipart/form-data">
+    method="post" action="{{route('postagens.store')}}" enctype="multipart/form-data">
     @endif
         {{ csrf_field() }} 
     
-    <div class="form-group col-md-12">
-        <label for="InputName">Nome</label>
-        <input type="text" class="form-control" id="InputName" name="name" placeholder="Nome" value="{{$data->name or old('name')}}">
-    </div>
-    <div class="form-group col-md-12">
-        <label for="InputUrl">Url</label>
-        <input type="text" class="form-control" id="InputUrl" name="url" placeholder="Url" value="{{$data->url or old('url')}}">
-    </div>
-    <!-- textarea -->
-    <div class="form-group col-md-12">
-        <label>Descrição</label>
-        <textarea class="form-control" rows="5" name="description" placeholder="Digite aqui ...">{{$data->description or old('description')}}</textarea>
-    </div>
-    <div class="form-group col-md-12">
-        <label for="InputFile">Imagem de Perfil</label>
-        <input type="file" id="InputFile" name="image">
+        <div class="form-group col-md-12">
+            <label for="InputName">Titulo</label>
+            <input type="text" class="form-control" id="InputName" name="title" placeholder="Titulo" value="{{$data->name or old('name')}}">
+        </div>
 
-    </div>
+        <div class="form-group col-md-12">
+            <label>Categoria</label>
+            <select name="category">
+                <option value="1">Alimento</option>
+            </select>
+        </div>
 
+        <div class="form-group col-md-12">
+            <label for="InputFile">Imagem da Postagem</label>
+            <input type="file" id="InputFile" name="image">
+        </div>
+
+        <!-- textarea -->
+        <div class="form-group col-md-12">
+            <label>Descrição</label>
+            <textarea class="form-control" rows="5" name="description" placeholder="Digite aqui ..." id="description">{{$data->description or old('description')}}</textarea>
+        </div>
+        
         <div class="form-group col-md-6">
             <button class="btn btn-info">Enviar</button>
         </div>
     </form>
 
+
+
 </div><!--Content Dinâmico-->
+
+
 @endsection

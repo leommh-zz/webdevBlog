@@ -1,13 +1,13 @@
 @extends('painel.templates.dashboard')
 @section('conteudo')
 <div class="title-pg">
-    <h1 class="title-pg">Listagem de Categorias</h1>
+    <h1 class="title-pg">Listagem de Postagens</h1>
 </div>
 
 <div class="content-din bg-white">
 
     <div class="form-search">
-        <form class="form form-inline"  method="get" action="{{route('categorias.search')}}" enctype="multipart/form-data">
+        <form class="form form-inline"  method="get" action="{{route('postagens.search')}}" enctype="multipart/form-data">
 
             {{-- {{ csrf_field() }} --}}
             <input type="text" name="pesquisa"  class="form-control">
@@ -18,7 +18,7 @@
     </div>
 
     <div class="class-btn-insert">
-    <a href="{{route('categorias.create')}}" class="btn-insert">
+    <a href="{{route('postagens.create')}}" class="btn-insert">
             <span class="glyphicon glyphicon-plus"></span>
             Cadastrar
         </a>
@@ -47,8 +47,8 @@
                 <td>{{$cat->name}}</td>
                 <td>{{$cat->url}}</td>
                 <td>
-                <a href="{{route('categorias.show', $cat->id)}}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
-                <a href="{{route('categorias.edit', $cat->id)}}" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>
+                <a href="{{route('postagens.show', $cat->id)}}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
+                <a href="{{route('postagens.edit', $cat->id)}}" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>
 
                 </td>
             </tr>
