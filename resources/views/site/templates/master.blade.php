@@ -1,3 +1,4 @@
+<?php use App\Models\Category; ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -61,12 +62,7 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorias <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-									<?php
-										use App\Models\Category;
-										$fetch = Category::all();
-									?>
-
-              		@forelse($fetch as $key)
+									@forelse(Category::all() as $key)
                   	<li><a href="{{ url('categoria/'.$key->id) }}">{{ $key->name }}</a></li>
                   	@empty
                   		<li>...</li>
