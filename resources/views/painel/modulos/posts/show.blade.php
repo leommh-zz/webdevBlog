@@ -1,7 +1,7 @@
 @extends('painel.templates.dashboard')
 @section('conteudo')
 <div class="title-pg">
-<h1 class="title-pg">Visualizar postagens: {{$data->name}}</h1>
+<h1 class="title-pg">Visualizar usuário: {{$data->name}}</h1>
 </div>
 
 <div class="content-din">
@@ -23,27 +23,26 @@
         <div class="row">
             <div class="col-md-8">
 
-                <h4><strong>Nome: </strong>{{$data->name}}</h4>
-                <h4><strong>Url: </strong>{{$data->Url}}</h4>
+                <h4><strong>Título: </strong>{{$data->title}}</h4>
+                <h4><strong>URL: </strong>{{$data->url}}</h4>
                 <h4><strong>Descrição: </strong>{{$data->description}}</h4>
- 
             </div>
             <div class="col-md-4">
                 @if(isset($data->image))
-                <img src="{{URL::asset('/assets/uploads/postagens/'.$data->image)}}" alt="$user->image" class="img-responsive img-rounded img-bordered">
+                <img src="{{URL::asset('/assets/uploads/posts/'.$data->image)}}" alt="$data->image" class="img-responsive img-rounded img-bordered" width="200">
                 @endif
             </div>
         </div>
     </div>
 
     <!-- form start -->
-    <form role="form" method="post" action="{{route('postagens.destroy', $data->id)}}" >
+    <form role="form" method="post" action="{{route('categorias.destroy', $data->id)}}" >
         {{ method_field('DELETE') }}
         {{ csrf_field() }}
         <div class="box-footer">
             <div class="form-group col-md-6">
                 <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Deletar</button>
-                <a href="{{route('postagens.index')}}" class="btn btn-info"><i class="fa fa-undo"></i>  Voltar</a>
+                <a href="{{route('posts.index')}}" class="btn btn-info"><i class="fa fa-undo"></i>  Voltar</a>
             </div>
         </div>
     </form>

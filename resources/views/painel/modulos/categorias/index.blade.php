@@ -39,13 +39,13 @@
     <table class="table table-striped">
         <tr>
             <th>Nome</th>
-            <th>Url</th>
+            <th>Descrição</th>
             <th width="150">Ações</th>
         </tr>
         @forelse($datas as $cat)
             <tr>
                 <td>{{$cat->name}}</td>
-                <td>{{$cat->url}}</td>
+                <td>{{ str_limit($cat->description, 100) }}</td>
                 <td>
                 <a href="{{route('categorias.show', $cat->id)}}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
                 <a href="{{route('categorias.edit', $cat->id)}}" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>

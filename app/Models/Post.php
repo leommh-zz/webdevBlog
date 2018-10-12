@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\Models\Category;
 
 class Post extends Model
 {
@@ -23,7 +24,7 @@ class Post extends Model
     public function rules($id = ''){
         return [
             'title'         => 'required|min:3|max:250',
-            'url'           => "required|min:3|max:100|unique:posts,url,{$id},id",
+            'url'           => "required|min:3|max:100|unique:posts,image,{$id},id",
             'category_id'   => 'required',
             'description'   => 'required|min:10|max:6000',
             'date'          => 'required|date',
@@ -39,5 +40,10 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="{{url('admin/css/webdevalfa.css')}}">
     <link rel="stylesheet" href="{{url('admin/css/webdevalfa-reset.css')}}">
 
-
 		<!--Favicon-->
     <link rel="icon" type="image/png" href="{{url('imgs/favicon.png')}}">
 	</head>
@@ -28,6 +27,12 @@
 	<div class="list-menu">
 		<ul class="menu-list">
 			<li>
+            <a href="{{url('/painel')}}">
+					<i class="fa fa-home" aria-hidden="true"></i>
+					Home
+				</a>
+			</li>
+			<li>
             <a href="{{url('/painel/usuarios')}}">
 					<i class="fa fa-users" aria-hidden="true"></i>
 					Usuários
@@ -39,21 +44,15 @@
 			Categorias
 				</a>
 			</li>
-			<li>
-            <a href="{{url('/painel')}}">
-					<i class="fa fa-home" aria-hidden="true"></i>
-					Home
-				</a>
-			</li>
 
 			<li>
-            <a href="{{url('/painel/postagens')}}">
+            <a href="{{url('/painel/posts')}}">
 					<i class="fa fa-id-card" aria-hidden="true"></i>
-					Listagem
+					Posts
 				</a>
 			</li>
 
-			<!-- <li>
+<!-- 			<li>
             <a href="{{url('/painel/forms')}}">
 					<i class="fa fa-fort-awesome" aria-hidden="true"></i>
 					Forms
@@ -98,7 +97,6 @@
 
 	<!--jQuery-->
 <script src="{{url('admin/js/jquery-3.1.1.min.js')}}"></script>
-
 
 	<!-- jS Bootstrap -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>

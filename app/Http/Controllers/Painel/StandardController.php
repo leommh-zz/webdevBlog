@@ -7,12 +7,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use App\Models\Category;
+//use App\Models\Category;
 
 class StandardController extends Controller
 {
 
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    protected $model;
+    protected $totalpages = 10;
 
  
     /**
@@ -25,7 +28,6 @@ class StandardController extends Controller
     public function index()
     {
         $datas = $this->model->paginate($this->totalpages);
-
         return view ("{$this->views}.index", compact('datas'));
     }
 
@@ -98,7 +100,6 @@ class StandardController extends Controller
     {
          //Recuperar usuário
          $data = $this->model->find($id);
-
          return view("{$this->views}.show", compact('data'));
     }
 
@@ -112,7 +113,6 @@ class StandardController extends Controller
     {
          //Recuperar usuário
          $data = $this->model->find($id);
-
          return view("{$this->views}.create-edit", compact('data'));
     }
 

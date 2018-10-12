@@ -45,16 +45,16 @@
             <th>GitHub</th>
             <th width="150">Ações</th>
         </tr>
-        @forelse($users as $user)
+        @forelse($datas as $key)
             <tr>
-                <td>{{$user->name}}</td>
-                <td>{{$user->email}}</td>
-                <td>{{$user->facebook}}</td>
-                <td>{{$user->twitter}}</td>
-                <td>{{$user->github}}</td>
+                <td>{{$key->name}}</td>
+                <td>{{$key->email}}</td>
+                <td>{{$key->facebook}}</td>
+                <td>{{$key->twitter}}</td>
+                <td>{{$key->github}}</td>
                 <td>
-                <a href="{{route('usuarios.show', $user->id)}}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
-                <a href="{{route('usuarios.edit', $user->id)}}" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>
+                <a href="{{route('usuarios.show', $key->id)}}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
+                <a href="{{route('usuarios.edit', $key->id)}}" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>
 
                 </td>
             </tr>
@@ -65,12 +65,12 @@
         @endforelse
     </table>
 
-    {{-- {{$users->links()}} --}}
+    {{-- {{$datas->links()}} --}}
 
     @if(isset($dataForm))
-    {{$users->appends(Request::only('pesquisa'))->links()}}
+    {{$datas->appends(Request::only('pesquisa'))->links()}}
         @else
-    {{$users->links()}}
+    {{$datas->links()}}
         @endif
 
 </div><!--Content Dinâmico-->

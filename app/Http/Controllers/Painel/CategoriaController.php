@@ -14,8 +14,6 @@ class CategoriaController extends StandardController
 
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected $model;
-    protected $totalpages = 2;
     protected $views = 'painel.modulos.categorias';
     protected $rotas = 'categorias';
     /**
@@ -27,6 +25,5 @@ class CategoriaController extends StandardController
     {
         $this->model = $category;
     }
-
    
 }

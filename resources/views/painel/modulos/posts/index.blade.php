@@ -1,24 +1,24 @@
 @extends('painel.templates.dashboard')
 @section('conteudo')
 <div class="title-pg">
-    <h1 class="title-pg">Listagem de Postagens</h1>
+    <h1 class="title-pg">Listagem de Posts</h1>
 </div>
 
 <div class="content-din bg-white">
 
     <div class="form-search">
-        <form class="form form-inline"  method="get" action="{{route('postagens.search')}}" enctype="multipart/form-data">
+        <form class="form form-inline"  method="get" action="{{route('posts.search')}}" enctype="multipart/form-data">
 
             {{-- {{ csrf_field() }} --}}
             <input type="text" name="pesquisa"  class="form-control">
-            {{-- <input type="text" name="email" placeholder="E-mail:" class="form-control"> --}}
+       <!--      {{-- <input type="text" name="email" placeholder="E-mail:" class="form-control"> --}} -->
 
             <button type="submit" class="btn btn-search">Pesquisar</button>
         </form>
     </div>
 
     <div class="class-btn-insert">
-    <a href="{{route('postagens.create')}}" class="btn-insert">
+    <a href="{{route('posts.create')}}" class="btn-insert">
             <span class="glyphicon glyphicon-plus"></span>
             Cadastrar
         </a>
@@ -38,24 +38,29 @@
 
     <table class="table table-striped">
         <tr>
-            <th>Nome</th>
-            <th>Url</th>
+            <th>Autor</th>
+            <th>Categoria</th>
+            <th>Titulo</th>
+            <th>Descrição</th>
+            <th>Status</th>
             <th width="150">Ações</th>
         </tr>
-        @forelse($datas as $cat)
+        @forelse($datas as $key)
             <tr>
-                <td>{{$cat->name}}</td>
-                <td>{{$cat->url}}</td>
+                <td>{{$key->user->name}}</td>
+                <td>{{$key->category->name}}</td>
+                <td>{{$key->title}}</td>
+                <td>{{str_limit($key->description,100) }}</td>
+                <td>{{$key->status}}</td>
                 <td>
-                <a href="{{route('postagens.show', $cat->id)}}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
-                <a href="{{route('postagens.edit', $cat->id)}}" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>
-
-                </td>
+                <a href="{{route('posts.show', $key->id)}}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
+                <a href="{{route('posts.edit', $key->id)}}" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>
+                </td>                
             </tr>
             @empty
-            <tr>
-                <td>Nenhum registro</td>
-                </tr>
+            <tr>    
+                <td colspan="3">Nenhum registro</td>
+            </tr>
         @endforelse
     </table>
 

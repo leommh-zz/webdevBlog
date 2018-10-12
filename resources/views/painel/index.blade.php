@@ -5,22 +5,29 @@
 </div>
 
 <div class="content-din">
-    
-    <?php for($i = 1; $i <= 10; $i++) { ?>
+
+    @forelse($datas as $key)
     <div class="col-md-3 col-sm-4 col-xm-12">
         <div class="rel-dash">
-            <i class="fa fa-home" aria-hidden="true"></i>
+            <i class="fa fa-user" aria-hidden="true"></i>
             <div class="text-rel">
                 <h2 class="result">
-                    12
+                    {{ $key->name }}
                 </h2>
                 <h3 class="result-ds">
-                    Total de Usuários
+                    {{ $key->email }}
                 </h3>
             </div>
         </div>
     </div>
-    <?php }?>
+    @empty
+
+    <h1>nenhum usuario cadastrado...</h1>
+
+    @endforelse
 
 </div><!--Content Dinâmico-->
+
+
+
 @endsection

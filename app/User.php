@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\Models\Post;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -36,14 +38,20 @@ class User extends Authenticatable
             'name'      => 'required|min:3|max:100',
             'email'     => "required|min:3|max:100|email|unique:users,email,{$id},id",
             'password'  => 'required|min:3|max:200|confirmed',
-            'facebook'  => 'min:3|max:100',
-            'twitter'   => 'min:3|max:100',
-            'github'    => 'min:3|max:100',
-            'site'      => 'min:3|max:200',
-            'biography' => 'min:3|max:1000',
-            'image'     => 'image',
         ];
     }
+
+    /*
+    
+            'facebook'  => 'required|min:3|max:100',
+            'twitter'   => 'required|min:3|max:100',
+            'github'    => 'required|min:3|max:100',
+            'site'      => 'required|min:3|max:200',
+            'biography' => 'required|min:3|max:1000',
+            'image'     => 'image',
+    
+    */
+
 
     /**
      * Retornar todos os posts do usuário./
