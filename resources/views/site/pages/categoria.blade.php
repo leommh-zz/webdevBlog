@@ -34,9 +34,11 @@
             </div>
         </article>
         @empty
-            <div class="alert alert-danger" role="alert">
-                <strong>Nenhuma postagem existente...</strong>
-            </div> 
+            <div class="col-md-12">
+                <div class="alert alert-danger" role="alert">
+                    <strong>Nenhuma postagem existente...</strong>
+                </div> 
+            </div>
         @endforelse
 
         {{-- {{$datas->links()}} --}}

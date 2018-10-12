@@ -88,7 +88,7 @@
 
 
 	<footer class="footer">
-		<p class="footer">Todos os direitos reservados - WebDevAlfa <?=date('Y')?></p>
+		<p class="footer">Todos os direitos reservados - WebDevAlfa <?=date('Y')?> | Desenvolvedor: Leonardo Morini</p>
 	</footer>
 
 
